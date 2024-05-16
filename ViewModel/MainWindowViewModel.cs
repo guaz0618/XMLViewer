@@ -34,7 +34,14 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
         if (openFileDialog.ShowDialog() == true)
         {
-            Document = XDocument.Load(openFileDialog.FileName);
+            try
+            {
+                Document = XDocument.Load(openFileDialog.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, $"Failed to open {openFileDialog.FileName}", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }   
     
